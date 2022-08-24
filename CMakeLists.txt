@@ -7,6 +7,8 @@ include_directories(lib)
 include_directories(include)
 
 #Subdirectories
+add_subdirectory(lib/SFML)
+include_directories(lib/SFML/include)
 
 if(WIN32)
 else()
@@ -31,6 +33,10 @@ if (WIN32)
 else()
     set(CMAKE_CXX_FLAGS -no-pie)
 endif()
+
+#Minigames
+add_executable(Pong-Single src/Pong-Single/Main.cpp)
+target_link_libraries(Pong-Single sfml-graphics)
 
 #Main program
 add_executable(Program src/Main.cpp)
