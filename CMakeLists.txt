@@ -9,6 +9,8 @@ include_directories(include)
 #Subdirectories
 add_subdirectory(lib/SFML)
 include_directories(lib/SFML/include)
+add_subdirectory(lib/wxWidgets)
+include_directories(lib/wxWidgets/include)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_COMPILER g++)
