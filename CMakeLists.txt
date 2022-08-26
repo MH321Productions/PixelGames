@@ -19,23 +19,26 @@ set(CMAKE_CXX_COMPILER g++)
 if(CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
 endif()
 
+#System exclusive instructions
+if (WIN32)
+set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded")
+    add_compile_definitions(PG_WINDOWS)
+else()
+    set(CMAKE_CXX_FLAGS -no-pie)
+endif()
+    
 #generated libraries
-add_library(Util src/Util/Util.cpp)
+add_library(Util STATIC src/Util/Util.cpp)
+add_library(IPC STATIC src/IPC/IPC.cpp src/IPC/IPCPosix.cpp src/IPC/IPCWindows.cpp)
+target_link_libraries(IPC PRIVATE wx::base)
 
 list(APPEND libs
 )
 
-#System exclusive instructions
-if (WIN32)
-    set(CMAKE_BUILD_TYPE Release)
-    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded")
-else()
-    set(CMAKE_CXX_FLAGS -no-pie)
-endif()
-
 #Minigames
 add_subdirectory(src/Pong-Single)
-
+    
 #Main program
 add_executable(Program src/Main.cpp)
 set_target_properties(Program PROPERTIES OUTPUT_NAME "PixelGames Starter" WIN32_EXECUTABLE TRUE)
