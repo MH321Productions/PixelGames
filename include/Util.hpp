@@ -8,6 +8,11 @@ namespace sf {
 }
 
 /**
+ * An Enum containing identifiers for all minigames
+ */ 
+enum Games : unsigned char {PongSingle};
+
+/**
  * Interface for Objects over the minigames
  */ 
 class Object {
