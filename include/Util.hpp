@@ -2,10 +2,14 @@
 #define PG_OBJECT_HPP
 
 #include <chrono>
+#include <string>
+#include <vector>
 
 namespace sf {
     class RenderWindow;
 }
+
+using Byte = unsigned char;
 
 /**
  * An Enum containing identifiers for all minigames
@@ -39,6 +43,22 @@ class Timer {
         float deltaTime = 0.0f;
 
         void calculateDeltaTime(const bool& startFrame);
+};
+
+/**
+ * A small utility class for Base64 en-/decoding
+ */ 
+class Base64 {
+    private:
+        static const std::string b64Chars;
+
+        static inline bool isBase64(const Byte& c);
+
+    public:
+        static std::string encode(const Byte* buf, size_t len);
+        static std::string encode(const std::vector<Byte>& buf);
+
+        static std::vector<Byte> decode(const std::string& encoded);
 };
 
 #endif//PG_OBJECT_HPP

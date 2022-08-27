@@ -29,7 +29,7 @@ else()
 endif()
     
 #generated libraries
-add_library(Util STATIC src/Util/Util.cpp)
+add_library(Util STATIC src/Util/Util.cpp src/Util/Base64.cpp)
 add_library(IPC STATIC src/IPC/IPC.cpp src/IPC/IPCPosix.cpp src/IPC/IPCWindows.cpp)
 target_link_libraries(IPC PRIVATE wx::base)
 
