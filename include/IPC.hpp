@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 
-enum Games;
+enum Games: unsigned char;
 class wxFrame;
 
 struct GameReturn {
