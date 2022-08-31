@@ -6,3 +6,8 @@ list(APPEND srcFiles
 
 add_executable(Pong-Single ${srcFiles})
 target_link_libraries(Pong-Single sfml-graphics Util)
+
+if(WIN32)
+set_target_properties(Pong-Single PROPERTIES WIN32_EXECUTABLE TRUE)
+target_link_libraries(Pong-Single sfml-main)
+endif(WIN32)

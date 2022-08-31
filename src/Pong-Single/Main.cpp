@@ -4,6 +4,7 @@
 using namespace std;
 
 int main(int anzahl, char* args[]) {
+    Windows::setupWindows();
 
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "PixelGames - Pong-Single", sf::Style::Close | sf::Style::Titlebar);
     Timer timer;
