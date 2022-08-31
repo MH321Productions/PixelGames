@@ -50,7 +50,7 @@ string Base64::encode(const Byte* buf, size_t len) {
         cArray4[2] = ((cArray3[1] & 0x0f) << 2) + ((cArray3[2] & 0xc0) >> 6);
         cArray4[3] = cArray3[2] & 0x3f;
 
-        for (j = 0; j <= i; j++) ret.push_back(b64Chars.at(cArray4[i]));
+        for (j = 0; j <= i; j++) ret.push_back(b64Chars.at(cArray4[j]));
 
         while ((i++ < 3)) ret.push_back('=');
     }
