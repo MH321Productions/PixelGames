@@ -21,7 +21,7 @@ endif()
 
 #System exclusive instructions
 if (WIN32)
-set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_BUILD_TYPE Release)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded")
     add_compile_definitions(PG_WINDOWS)
 else()
@@ -29,7 +29,7 @@ else()
 endif()
     
 #generated libraries
-add_library(Util STATIC src/Util/Util.cpp src/Util/Base64.cpp)
+add_library(Util STATIC src/Util/Util.cpp src/Util/Base64.cpp src/Util/Windows.cpp)
 add_library(IPC STATIC src/IPC/IPC.cpp src/IPC/IPCPosix.cpp src/IPC/IPCWindows.cpp)
 target_link_libraries(IPC PRIVATE wx::base)
 
@@ -41,13 +41,13 @@ add_subdirectory(src/Pong-Single)
     
 #Main program
 add_executable(Program src/Main.cpp)
-set_target_properties(Program PROPERTIES OUTPUT_NAME "PixelGames Starter" WIN32_EXECUTABLE TRUE)
+set_target_properties(Program PROPERTIES OUTPUT_NAME "PixelGames Starter")
 
 if (WIN32)
     target_link_libraries(Program PRIVATE "${libs}")
 
     set_target_properties("${libs}" PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
+    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
 else()
     target_link_libraries(Program PRIVATE "${libs}")
 endif()

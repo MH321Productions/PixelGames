@@ -61,4 +61,12 @@ class Base64 {
         static std::vector<Byte> decode(const std::string& encoded);
 };
 
+/**
+ * A small utility class to setup Windows for UTF-8 use
+ */ 
+class Windows {
+    public:
+        static void setupWindows();
+};
+
 #endif//PG_OBJECT_HPP
