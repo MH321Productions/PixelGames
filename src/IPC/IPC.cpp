@@ -21,7 +21,6 @@ const string IPC::pathSuffix = "";
 
 IPC::IPC(const std::string& programPath) {
     path program(programPath);
-    program = program.parent_path();
 
     if (program.filename() == pathPrefix) mainPath = program.string();
     else {
@@ -60,13 +59,14 @@ bool IPC::runGame(Games game, wxFrame* frame) {
         wxMessageBox(msg, wxT("Couldn't start the game"), wxICON_ERROR, frame);
         return false;
     }
-    frame->Show(false);
 
     GameReturn ret = runGameNative(getPath(game));
 
     if (ret.closeStarter) return true;
 
     frame->Show(true);
+    frame->Raise();
+    frame->SetFocus();
 
     if (ret.errors.size()) {
         wxString msg = wxT("The game had the following errors:\n");
