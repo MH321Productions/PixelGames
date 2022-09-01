@@ -80,3 +80,8 @@ for item in libs:
 print(f"Copying {len(res)} resources")
 for item in res:
     shutil.copy(mainPath.joinpath(item), resPath)
+
+print("Copying starter")
+shutil.copy(buildPath.joinpath("PixelGames Starter"), exportPath)
+
+print("Export folder successfully created")
