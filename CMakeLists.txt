@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.16)
 project(pixel-games LANGUAGES CXX)
 
 include_directories(src)
-include_directories(lib)
 include_directories(include)
 
 #Subdirectories
@@ -30,17 +29,24 @@ endif()
     
 #generated libraries
 add_library(Util STATIC src/Util/Util.cpp src/Util/Base64.cpp src/Util/Windows.cpp)
-add_library(IPC STATIC src/IPC/IPC.cpp src/IPC/IPCPosix.cpp src/IPC/IPCWindows.cpp)
-target_link_libraries(IPC PRIVATE wx::base)
 
 list(APPEND libs
+    wx::base wx::core Util
+)
+
+list(APPEND starterSrc
+    src/Starter/StarterFrame.cpp
+    src/Starter/StarterImpl.cpp
+    src/IPC/IPC.cpp
+    src/IPC/IPCPosix.cpp
+    src/IPC/IPCWindows.cpp
 )
 
 #Minigames
 add_subdirectory(src/Pong-Single)
     
 #Main program
-add_executable(Program src/Main.cpp)
+add_executable(Program ${starterSrc})
 set_target_properties(Program PROPERTIES OUTPUT_NAME "PixelGames Starter")
 
 if (WIN32)
