@@ -13,6 +13,8 @@ include_directories(lib/wxWidgets/include)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_COMPILER g++)
+set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
+message(STATUS "Install to: ${CMAKE_INSTALL_PREFIX}")
 
 #Special instructions in Debug mode
 if(CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
@@ -47,13 +49,28 @@ add_subdirectory(src/Pong-Single)
     
 #Main program
 add_executable(Program ${starterSrc})
-set_target_properties(Program PROPERTIES OUTPUT_NAME "PixelGames Starter")
+set_target_properties(Program PROPERTIES OUTPUT_NAME "PixelGames Starter" WIN32_EXECUTABLE TRUE)
+#install(TARGETS Program RUNTIME DESTINATION PixelGames)
 
 if (WIN32)
     target_link_libraries(Program PRIVATE "${libs}")
 
-    set_target_properties("${libs}" PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded")
+    #set_target_properties("${libs}" PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded")
     #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
+    
+    #Install libraries
+    install(
+        TARGETS sfml-system sfml-graphics sfml-window
+        CONFIGURATIONS Release
+        RUNTIME DESTINATION PixelGames/bin
+    )
+    
+    get_target_property(wxbase wx::base ALIASED_TARGET)
+    get_target_property(wxcore wx::core ALIASED_TARGET)
+    install(
+        TARGETS ${wxbase} ${wxcore}
+        RUNTIME DESTINATION PixelGames
+    )
 else()
     target_link_libraries(Program PRIVATE "${libs}")
 endif()
