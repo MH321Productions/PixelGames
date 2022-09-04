@@ -56,13 +56,19 @@ bool IPC::runGame(Games game, wxFrame* frame) {
         wxString msg = wxT("Couldn't find the game:\n");
         msg << getPath(game) << " doesn't exist";
 
-        wxMessageBox(msg, wxT("Couldn't start the game"), wxICON_ERROR, frame);
+        wxMessageBox(msg, wxT("Couldn't start the game"), wxICON_ERROR, NULL);
+        frame->Show(true);
+        frame->Raise();
+        frame->SetFocus();
         return false;
     }
 
     GameReturn ret = runGameNative(getPath(game));
 
-    if (ret.closeStarter) return true;
+    if (ret.closeStarter) {
+        frame->Destroy();
+        exit(0);
+    }
 
     frame->Show(true);
     frame->Raise();
@@ -70,7 +76,8 @@ bool IPC::runGame(Games game, wxFrame* frame) {
 
     if (ret.errors.size()) {
         wxString msg = wxT("The game had the following errors:\n");
-        msg << ret.errors;
+        wxString err = wxString::FromUTF8(ret.errors);
+        msg << err;
         wxMessageBox(msg, wxT("Errors while running the game"), wxICON_WARNING, frame);
     }
 
