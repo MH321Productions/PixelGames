@@ -31,34 +31,21 @@ else()
 endif()
     
 #generated libraries
-add_library(Util STATIC src/Util/Util.cpp src/Util/Base64.cpp src/Util/Windows.cpp)
-
-list(APPEND libs
-    wx::base wx::core Util
-)
-
-list(APPEND starterSrc
-    src/Starter/StarterFrame.cpp
-    src/Starter/StarterImpl.cpp
-    src/IPC/IPC.cpp
-    src/IPC/IPCPosix.cpp
-    src/IPC/IPCWindows.cpp
-)
+#add_library(Util-s STATIC src/Util/Util.cpp src/Util/Base64.cpp src/Util/Windows.cpp)
+add_library(Util SHARED src/Util/Util.cpp src/Util/Base64.cpp src/Util/Windows.cpp)
+add_library(Resources SHARED src/Resources/IO.cpp src/Resources/Resources.cpp)
 
 #Minigames
 add_subdirectory(src/Pong-Single)
     
 #Main program
-add_executable(Program ${starterSrc})
-set_target_properties(Program PROPERTIES OUTPUT_NAME "PixelGames Starter" WIN32_EXECUTABLE TRUE)
-#install(TARGETS Program RUNTIME DESTINATION PixelGames)
+add_subdirectory(src/Starter)
+add_subdirectory(src/ResFormatter)
 
 if (WIN32)
-    target_link_libraries(Program PRIVATE "${libs}")
-
     #set_target_properties("${libs}" PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded")
     #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
-    
+
     #Install libraries
     install(
         TARGETS sfml-system sfml-graphics sfml-window
@@ -72,6 +59,4 @@ if (WIN32)
         TARGETS ${wxbase} ${wxcore}
         RUNTIME DESTINATION PixelGames
     )
-else()
-    target_link_libraries(Program PRIVATE "${libs}")
 endif()
