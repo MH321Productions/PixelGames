@@ -17,7 +17,9 @@ libs = [
     "lib/SFML/lib/libsfml-graphics.so.3.0.0",
     "lib/SFML/lib/libsfml-network.so.3.0.0",
     "lib/SFML/lib/libsfml-system.so.3.0.0",
-    "lib/SFML/lib/libsfml-window.so.3.0.0"
+    "lib/SFML/lib/libsfml-window.so.3.0.0",
+    "libResources.so",
+    "libUtil.so"
 ]
 
 # A list of all paths to the resource files
@@ -82,6 +84,6 @@ for item in res:
     shutil.copy(mainPath.joinpath(item), resPath)
 
 print("Copying starter")
-shutil.copy(buildPath.joinpath("PixelGames Starter"), exportPath)
+shutil.copy(buildPath.joinpath("src/Starter/PixelGames Starter"), binPath)
 
 print("Export folder successfully created")
