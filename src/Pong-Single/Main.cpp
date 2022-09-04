@@ -1,10 +1,13 @@
 #include "SFML/Graphics.hpp"
 #include "Objects.hpp"
+#include <iostream>
 
 using namespace std;
 
 int main(int anzahl, char* args[]) {
     Windows::setupWindows();
+
+    cerr << "Error Test äöü" << endl;
 
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "PixelGames - Pong-Single", sf::Style::Close | sf::Style::Titlebar);
     Timer timer;
@@ -40,6 +43,8 @@ int main(int anzahl, char* args[]) {
 
         timer.calculateDeltaTime(false);
     }
+
+    cerr << "end" << endl;
 
     return 0;
 }
