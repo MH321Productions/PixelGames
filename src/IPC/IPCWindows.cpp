@@ -5,16 +5,21 @@
 
 #ifdef PG_WINDOWS
 
-#include <sstream>
 #include "WinInclude.hpp"
+#include <sstream>
 #include "IPC.hpp"
 
 using namespace std;
 
 GameReturn IPC::runGameNative(const string& path) {
+    SECURITY_ATTRIBUTES sa;
+    sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+    sa.bInheritHandle = TRUE;
+    sa.lpSecurityDescriptor = NULL;
+
     //Create Pipe
     HANDLE pIn, pOut;
-    if (!CreatePipe(&pIn, &pOut, NULL, 0)) {
+    if (!CreatePipe(&pIn, &pOut, &sa, 0)) {
         ostringstream str;
         str << "Couldn't create Pipe: " << GetLastError() << endl;
         return {-1, str.str(), false};
@@ -25,8 +30,9 @@ GameReturn IPC::runGameNative(const string& path) {
 
     ZeroMemory(&si, sizeof(si));
     ZeroMemory(&pi, sizeof(pi));
-    si.cb = sizeof(si);
+    si.dwFlags |= STARTF_USESTDHANDLES;
     si.hStdError = pOut;
+    si.cb = sizeof(si);
 
     char* mPath = mainPath.data();
 
@@ -36,7 +42,7 @@ GameReturn IPC::runGameNative(const string& path) {
         mainPath.data(),
         NULL,
         NULL,
-        FALSE,
+        TRUE,
         0,
         NULL,
         NULL,
@@ -47,16 +53,19 @@ GameReturn IPC::runGameNative(const string& path) {
         return {-1, str.str(), false};
     }
 
+    CloseHandle(pOut);
+
+    //Wait for child process to end
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
     //Read from Pipe
     char buffer[256];
     string err;
     unsigned long numRead;
     while (ReadFile(pIn, buffer, 256, &numRead, NULL) && numRead) {
+        if (!numRead) break;
         err.append(buffer, numRead);
     }
-
-    //Wait for child process to end
-    WaitForSingleObject(pi.hProcess, INFINITE);
 
     //Get exit code
     unsigned long getExit;
@@ -65,6 +74,10 @@ GameReturn IPC::runGameNative(const string& path) {
         err.append("\nCouldn't get exit code: " + GetLastError());
         exitCode = -1;
     } else exitCode = getExit;
+
+    CloseHandle(pIn);
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
 
     return {exitCode, err, getExit == 1};
 }
