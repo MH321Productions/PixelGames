@@ -9,9 +9,9 @@ list(APPEND starterSrc
 )
 
 add_executable(Starter ${starterSrc})
-set_target_properties(Starter PROPERTIES OUTPUT_NAME "PixelGames Starter" WIN32_EXECUTABLE TRUE)
 target_link_libraries(Starter PRIVATE wx::base wx::core Util)
 
 if(WIN32)
-    install(TARGETS Program RUNTIME DESTINATION PixelGames)
+    install(TARGETS Starter RUNTIME DESTINATION PixelGames/bin)
+    set_target_properties(Starter PROPERTIES WIN32_EXECUTABLE TRUE)
 endif()
