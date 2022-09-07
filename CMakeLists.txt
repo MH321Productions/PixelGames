@@ -33,7 +33,7 @@ endif()
 #generated libraries
 #add_library(Util-s STATIC src/Util/Util.cpp src/Util/Base64.cpp src/Util/Windows.cpp)
 add_library(Util SHARED src/Util/Util.cpp src/Util/Base64.cpp src/Util/Windows.cpp)
-add_library(Resources SHARED src/Resources/IO.cpp src/Resources/Resources.cpp)
+add_library(Resources SHARED src/Resources/IO.cpp src/Resources/Resources.cpp src/Util/Base64.cpp)
 
 #Minigames
 add_subdirectory(src/Pong-Single)
@@ -41,10 +41,14 @@ add_subdirectory(src/Pong-Single)
 #Main program
 add_subdirectory(src/Starter)
 add_subdirectory(src/ResFormatter)
+add_executable(Main src/Main.cpp src/Util/Windows.cpp)
+set_target_properties(Main PROPERTIES OUTPUT_NAME "PixelGames Starter" WIN32_EXECUTABLE TRUE)
 
 if (WIN32)
     #set_target_properties("${libs}" PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded")
     #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
+
+    install(TARGETS PixelGames RUNTIME DESTINATION PixelGames)
 
     #Install libraries
     install(
@@ -57,6 +61,6 @@ if (WIN32)
     get_target_property(wxcore wx::core ALIASED_TARGET)
     install(
         TARGETS ${wxbase} ${wxcore}
-        RUNTIME DESTINATION PixelGames
+        RUNTIME DESTINATION PixelGames/bin
     )
 endif()
