@@ -7,6 +7,7 @@ import shutil
 # A list of all paths to the game executables
 # (Relative to the build directory)
 games = [
+    "src/Starter/Starter",
     "src/Pong-Single/Pong-Single"
 ]
 
@@ -84,6 +85,6 @@ for item in res:
     shutil.copy(mainPath.joinpath(item), resPath)
 
 print("Copying starter")
-shutil.copy(buildPath.joinpath("src/Starter/PixelGames Starter"), binPath)
+shutil.copy(buildPath.joinpath("PixelGames Starter"), exportPath)
 
 print("Export folder successfully created")
