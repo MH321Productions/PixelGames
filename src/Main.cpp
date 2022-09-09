@@ -1,12 +1,11 @@
-#include <iostream>
 #include <string>
 #include <filesystem>
 
 //System-based includes
 #ifdef PG_WINDOWS
 #include "WinInclude.hpp"
-#include "Util.hpp"
 #else
+#include <iostream>
 #include <unistd.h>
 #endif
 
@@ -59,9 +58,44 @@ int main(int anzahl, char* args[]) {
 #else //WINAPI Starter code
 
 int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow) {
-    Windows::setupWindows();
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
 
-    return MessageBox(NULL, "hello, world", "caption", 0);
+    char exe[MAX_PATH];
+    GetModuleFileName(NULL, exe, MAX_PATH); //Props to WINAPI for this neat function
+
+    path starter = path(exe).parent_path().append("bin").append("Starter.exe");
+
+    if (!exists(starter)) {
+        string err = "The starter " + starter.string() + " doesn't exist!";
+        MessageBox(NULL, err.c_str(), "Error while starting", MB_ICONERROR | MB_OK);
+        return 1;
+    }
+
+    //Start Starter.exe
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory(&si, sizeof(STARTUPINFO));
+    ZeroMemory(&pi, sizeof(PROCESS_INFORMATION));
+    si.cb = sizeof(si);
+
+    if (!CreateProcess(
+        starter.string().c_str(),
+        cmdline,
+        NULL,
+        NULL,
+        FALSE,
+        0,
+        NULL,
+        NULL,
+        &si, &pi
+    )) {
+        MessageBox(NULL, "Couldn't start the starter.\nPlease start bin\\Starter.exe manually", "Error while starting", MB_ICONERROR | MB_OK);
+        return 1;
+    }
+
+    return 0;
 }
 
 #endif
