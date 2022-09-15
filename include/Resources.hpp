@@ -9,6 +9,8 @@ using Byte = unsigned char;
 
 enum ResourceType: unsigned char {Undefined, Text, Number, Binary};
 class ResourceHandler;
+class EntryPanelImpl; //Resource formatter
+class FormatterFrameImpl;
 
 /**
  * A class wrapper for a resource.
@@ -18,9 +20,8 @@ class ResourceHandler;
  */ 
 class Resource {
     friend class ResourceHandler;
+    friend class EntryPanelImpl;
     private:
-        static const Resource emptyResource;
-
         ResourceType type;
         std::string name, text;
         long number;
@@ -30,6 +31,8 @@ class Resource {
         Resource(const std::string& name, const long& number) : name(name), type(Number), text(""), number(number) {}
         Resource(const std::string& name, const std::vector<Byte>& bin) : name(name), type(Binary), text(""), number(0), bin(bin) {}
     public:
+        static const Resource emptyResource;
+
         Resource() : name("null"), type(Undefined), text(""), number(0) {}
 
         bool isText()   const {return type == Text;}
@@ -48,6 +51,7 @@ class Resource {
  * The I/O handler for resources
  */ 
 class ResourceHandler {
+    friend class FormatterFrameImpl;
     private:
         static const std::string pathPrefix, pathSuffix;
         std::string mainPath;
