@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b)
+// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b3)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -21,6 +21,9 @@
 #include <wx/sizer.h>
 #include <wx/scrolwin.h>
 #include <wx/frame.h>
+#include <wx/stattext.h>
+#include <wx/textctrl.h>
+#include <wx/choice.h>
 #include <wx/panel.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -36,11 +39,14 @@ class FormatterFrame : public wxFrame
 	protected:
 		wxButton* btnLoad;
 		wxButton* btnSave;
+		wxButton* btnNew;
 		wxScrolledWindow* scroll;
+		wxBoxSizer* resSz;
 
 		// Virtual event handlers, override them in your derived class
 		virtual void onLoad( wxCommandEvent& event ) { event.Skip(); }
 		virtual void onSave( wxCommandEvent& event ) { event.Skip(); }
+		virtual void onAdd( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:
@@ -59,10 +65,24 @@ class ResEntryPanel : public wxPanel
 	private:
 
 	protected:
+		wxStaticText* lblName;
+		wxTextCtrl* txtName;
+		wxStaticText* lblType;
+		wxChoice* choiceType;
+		wxStaticText* lblValue;
+		wxTextCtrl* txtValue;
+		wxButton* btnValue;
+		wxButton* btnDelete;
+
+		// Virtual event handlers, override them in your derived class
+		virtual void onType( wxCommandEvent& event ) { event.Skip(); }
+		virtual void onBinary( wxCommandEvent& event ) { event.Skip(); }
+		virtual void onDelete( wxCommandEvent& event ) { event.Skip(); }
+
 
 	public:
 
-		ResEntryPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 750,50 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
+		ResEntryPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 700,50 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
 
 		~ResEntryPanel();
 
