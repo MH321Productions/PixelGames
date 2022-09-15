@@ -27,14 +27,16 @@ if (WIN32)
     set(CMAKE_BUILD_TYPE Release)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded")
     add_compile_definitions(PG_WINDOWS)
+    set(PGLibType STATIC) #Have to be static on Windows, bc MSVC has a problem with linking them
 else()
     set(CMAKE_CXX_FLAGS -no-pie)
+    set(PGLibType SHARED)
 endif()
     
 #generated libraries
 #add_library(Util-s STATIC src/Util/Util.cpp src/Util/Base64.cpp src/Util/Windows.cpp)
-add_library(Util SHARED src/Util/Util.cpp src/Util/Base64.cpp src/Util/Windows.cpp)
-add_library(Resources SHARED src/Resources/IO.cpp src/Resources/Resources.cpp src/Util/Base64.cpp)
+add_library(Util ${PGLibType} src/Util/Util.cpp src/Util/Base64.cpp src/Util/Windows.cpp)
+add_library(Resources ${PGLibType} src/Resources/IO.cpp src/Resources/Resources.cpp src/Util/Base64.cpp)
 
 #Minigames
 add_subdirectory(src/Pong-Single)
