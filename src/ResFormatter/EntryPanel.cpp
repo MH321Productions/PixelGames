@@ -19,6 +19,7 @@ EntryPanelImpl::EntryPanelImpl(wxWindow* parent, const size_t& index, FormatterF
         if (r.isBinary()) {
             btnValue->Enable();
             binValue = r.bin;
+            txtValue->SetValue(binValueSelected);
         } else {
             wxString val;
             if (r.isNumber()) val << r.number;
@@ -61,6 +62,8 @@ void EntryPanelImpl::onType(wxCommandEvent& event) {
             txtValue->SetValue(correct);
         }
     }
+
+    frame->setChanges();
 }
 
 void EntryPanelImpl::onBinary(wxCommandEvent& event) {
@@ -70,10 +73,16 @@ void EntryPanelImpl::onBinary(wxCommandEvent& event) {
 
 void EntryPanelImpl::onDelete(wxCommandEvent& event) {
     frame->removeEntry(index);
+    frame->setChanges();
+}
+
+void EntryPanelImpl::onText(wxCommandEvent& event) {
+    frame->setChanges();
 }
 
 void EntryPanelImpl::setBinary(const std::vector<Byte>& data) {
     binValue = data;
+    frame->setChanges();
 }
 
 Resource EntryPanelImpl::getResource() {

@@ -15,6 +15,8 @@ class FormatterFrameImpl : public FormatterFrame {
     friend class EntryPanelImpl;
     private:
         std::vector<EntryPanelImpl*> entries;
+        bool hasChanges = false;
+        wxString titleNormal, titleChanges;
 
         void addEntry(const Resource& r);
         void removeEntry(const size_t& index);
@@ -23,9 +25,11 @@ class FormatterFrameImpl : public FormatterFrame {
         virtual void onLoad(wxCommandEvent& event);
         virtual void onSave(wxCommandEvent& event);
         virtual void onAdd(wxCommandEvent& event);
+        virtual void onClose(wxCloseEvent& event);
 
     public:
-        FormatterFrameImpl() : FormatterFrame(NULL) {}
+        FormatterFrameImpl();
+        void setChanges(const bool& openChanges = true);
 };
 
 class EntryPanelImpl : public ResEntryPanel {
@@ -43,6 +47,7 @@ class EntryPanelImpl : public ResEntryPanel {
         virtual void onType(wxCommandEvent& event);
         virtual void onBinary(wxCommandEvent& event);
         virtual void onDelete(wxCommandEvent& event);
+        virtual void onText(wxCommandEvent& event);
 
         void setBinary(const std::vector<Byte>& data);
 

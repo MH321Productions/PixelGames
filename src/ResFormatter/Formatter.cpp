@@ -52,6 +52,7 @@ FormatterFrame::FormatterFrame( wxWindow* parent, wxWindowID id, const wxString&
 	this->Centre( wxBOTH );
 
 	// Connect Events
+	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( FormatterFrame::onClose ) );
 	btnLoad->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FormatterFrame::onLoad ), NULL, this );
 	btnSave->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FormatterFrame::onSave ), NULL, this );
 	btnNew->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FormatterFrame::onAdd ), NULL, this );
@@ -60,6 +61,7 @@ FormatterFrame::FormatterFrame( wxWindow* parent, wxWindowID id, const wxString&
 FormatterFrame::~FormatterFrame()
 {
 	// Disconnect Events
+	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( FormatterFrame::onClose ) );
 	btnLoad->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FormatterFrame::onLoad ), NULL, this );
 	btnSave->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FormatterFrame::onSave ), NULL, this );
 	btnNew->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FormatterFrame::onAdd ), NULL, this );
@@ -116,6 +118,7 @@ ResEntryPanel::ResEntryPanel( wxWindow* parent, wxWindowID id, const wxPoint& po
 
 	// Connect Events
 	choiceType->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( ResEntryPanel::onType ), NULL, this );
+	txtValue->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( ResEntryPanel::onText ), NULL, this );
 	btnValue->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ResEntryPanel::onBinary ), NULL, this );
 	btnDelete->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ResEntryPanel::onDelete ), NULL, this );
 }
@@ -124,6 +127,7 @@ ResEntryPanel::~ResEntryPanel()
 {
 	// Disconnect Events
 	choiceType->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( ResEntryPanel::onType ), NULL, this );
+	txtValue->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( ResEntryPanel::onText ), NULL, this );
 	btnValue->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ResEntryPanel::onBinary ), NULL, this );
 	btnDelete->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ResEntryPanel::onDelete ), NULL, this );
 

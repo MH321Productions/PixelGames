@@ -45,6 +45,7 @@ class FormatterFrame : public wxFrame
 		wxBoxSizer* resSz;
 
 		// Virtual event handlers, override them in your derived class
+		virtual void onClose( wxCloseEvent& event ) { event.Skip(); }
 		virtual void onLoad( wxCommandEvent& event ) { event.Skip(); }
 		virtual void onSave( wxCommandEvent& event ) { event.Skip(); }
 		virtual void onAdd( wxCommandEvent& event ) { event.Skip(); }
@@ -77,6 +78,7 @@ class ResEntryPanel : public wxPanel
 
 		// Virtual event handlers, override them in your derived class
 		virtual void onType( wxCommandEvent& event ) { event.Skip(); }
+		virtual void onText( wxCommandEvent& event ) { event.Skip(); }
 		virtual void onBinary( wxCommandEvent& event ) { event.Skip(); }
 		virtual void onDelete( wxCommandEvent& event ) { event.Skip(); }
 
