@@ -30,6 +30,9 @@ class Resource {
         Resource(const std::string& name, const std::string& text) : name(name), type(Text), text(text), number(0) {}
         Resource(const std::string& name, const long& number) : name(name), type(Number), text(""), number(number) {}
         Resource(const std::string& name, const std::vector<Byte>& bin) : name(name), type(Binary), text(""), number(0), bin(bin) {}
+
+        size_t getSize() const;
+
     public:
         static const Resource emptyResource;
 
@@ -57,7 +60,10 @@ class ResourceHandler {
         std::string mainPath;
         std::map<std::string, Resource> resources;
 
-        bool saveFile(const std::string& fileName);
+        bool saveFile(const std::string& filePath);
+        bool loadIntern(const std::string filePath, const bool& clear = true);
+
+        ResourceHandler(const std::map<std::string, Resource>& res) : resources(res) {}
 
     public:
         ResourceHandler(const std::string& mainPath) : mainPath(mainPath) {}
