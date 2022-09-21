@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b3)
+// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -25,6 +25,7 @@
 #include <wx/textctrl.h>
 #include <wx/choice.h>
 #include <wx/panel.h>
+#include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -85,6 +86,34 @@ class ResEntryPanel : public wxPanel
 		ResEntryPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 700,50 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
 
 		~ResEntryPanel();
+
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class EntryBinDialog
+///////////////////////////////////////////////////////////////////////////////
+class EntryBinDialog : public wxDialog
+{
+	private:
+
+	protected:
+		wxScrolledWindow* scrBase64;
+		wxTextCtrl* txtBase64;
+		wxButton* btnSave;
+		wxButton* btnLoad;
+		wxButton* btnClose;
+
+		// Virtual event handlers, override them in your derived class
+		virtual void onSave( wxCommandEvent& event ) { event.Skip(); }
+		virtual void onLoad( wxCommandEvent& event ) { event.Skip(); }
+		virtual void onClose( wxCommandEvent& event ) { event.Skip(); }
+
+
+	public:
+
+		EntryBinDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Binary Resource"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,350 ), long style = wxDEFAULT_DIALOG_STYLE );
+
+		~EntryBinDialog();
 
 };
 

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b3)
+// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -126,5 +126,66 @@ ResEntryPanel::~ResEntryPanel()
 	choiceType->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( ResEntryPanel::onType ), NULL, this );
 	btnValue->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ResEntryPanel::onBinary ), NULL, this );
 	btnDelete->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ResEntryPanel::onDelete ), NULL, this );
+
+}
+
+EntryBinDialog::EntryBinDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+
+	wxFlexGridSizer* mainSz;
+	mainSz = new wxFlexGridSizer( 2, 1, 0, 0 );
+	mainSz->AddGrowableCol( 0 );
+	mainSz->AddGrowableRow( 0 );
+	mainSz->SetFlexibleDirection( wxBOTH );
+	mainSz->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+	scrBase64 = new wxScrolledWindow( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL|wxVSCROLL );
+	scrBase64->SetScrollRate( 5, 5 );
+	wxGridSizer* base64Sz;
+	base64Sz = new wxGridSizer( 1, 1, 0, 0 );
+
+	txtBase64 = new wxTextCtrl( scrBase64, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_BESTWRAP|wxTE_CHARWRAP|wxTE_MULTILINE|wxTE_READONLY );
+	base64Sz->Add( txtBase64, 0, wxALL|wxEXPAND, 5 );
+
+
+	scrBase64->SetSizer( base64Sz );
+	scrBase64->Layout();
+	base64Sz->Fit( scrBase64 );
+	mainSz->Add( scrBase64, 1, wxEXPAND | wxALL, 5 );
+
+	wxGridSizer* actionSz;
+	actionSz = new wxGridSizer( 1, 3, 0, 0 );
+
+	btnSave = new wxButton( this, wxID_ANY, wxT("Save as file"), wxDefaultPosition, wxDefaultSize, 0 );
+	actionSz->Add( btnSave, 0, wxALL|wxEXPAND, 5 );
+
+	btnLoad = new wxButton( this, wxID_ANY, wxT("Load from file"), wxDefaultPosition, wxDefaultSize, 0 );
+	actionSz->Add( btnLoad, 0, wxALL|wxEXPAND, 5 );
+
+	btnClose = new wxButton( this, wxID_ANY, wxT("Close"), wxDefaultPosition, wxDefaultSize, 0 );
+	actionSz->Add( btnClose, 0, wxALL|wxEXPAND, 5 );
+
+
+	mainSz->Add( actionSz, 1, wxEXPAND, 5 );
+
+
+	this->SetSizer( mainSz );
+	this->Layout();
+
+	this->Centre( wxBOTH );
+
+	// Connect Events
+	btnSave->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( EntryBinDialog::onSave ), NULL, this );
+	btnLoad->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( EntryBinDialog::onLoad ), NULL, this );
+	btnClose->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( EntryBinDialog::onClose ), NULL, this );
+}
+
+EntryBinDialog::~EntryBinDialog()
+{
+	// Disconnect Events
+	btnSave->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( EntryBinDialog::onSave ), NULL, this );
+	btnLoad->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( EntryBinDialog::onLoad ), NULL, this );
+	btnClose->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( EntryBinDialog::onClose ), NULL, this );
 
 }

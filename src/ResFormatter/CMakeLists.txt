@@ -1,6 +1,6 @@
 # CMake file for the resource formatter
 
-add_executable(Resource-Formatter Formatter.cpp FormatterImpl.cpp EntryPanel.cpp)
+add_executable(Resource-Formatter Formatter.cpp FormatterImpl.cpp EntryPanel.cpp EntryDialog.cpp)
 target_link_libraries(Resource-Formatter wx::base wx::core Util Resources)
 
 if(WIN32)

@@ -2,6 +2,7 @@
 #include "Util.hpp"
 #include "Resources.hpp"
 #include <wx/wx.h>
+#include <map>
 
 using namespace std;
 
@@ -24,7 +25,33 @@ void FormatterFrameImpl::onLoad(wxCommandEvent& event) {
 }
 
 void FormatterFrameImpl::onSave(wxCommandEvent& event) {
+    wxFileDialog dialog(this, "Save resource", "", "", "Resource Files(*.res)|*.res", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+    if (dialog.ShowModal() != wxID_OK) return;
+    string filePath = string(dialog.GetPath().ToUTF8().data());
+    if (!filePath.ends_with(".res")) filePath.append(".res");
 
+    //Collect Resources
+    map<string, Resource> res;
+
+    Resource r;
+    string name;
+    for (EntryPanelImpl* entry: entries) {
+        r = entry->getResource();
+        if (r.isValid()) {
+            name = r.getName();
+            if (res.contains(name)) res.at(name) = r;
+            else res.insert({name, r});
+        }
+    }
+
+    //Save resources
+    ResourceHandler handler("");
+    handler.resources = res;
+    if (handler.saveFile(filePath)) {
+        wxMessageBox(wxT("The resources have been saved successfully"), wxT("Save Resources"), wxOK | wxICON_INFORMATION, this);
+    } else {
+        wxMessageBox(wxT("The resources couldn't be saved"), wxT("Save Resources"), wxOK | wxICON_ERROR, this);
+    }
 }
 
 void FormatterFrameImpl::onAdd(wxCommandEvent& event) {
