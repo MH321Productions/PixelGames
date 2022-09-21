@@ -12,6 +12,8 @@ set(wxBUILD_VENDOR "321Productions")
 add_subdirectory(lib/wxWidgets)
 include_directories(lib/wxWidgets/include)
 include_directories(lib/json/single_include)
+add_subdirectory(lib/zlib)
+include_directories(lib/zlib)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_COMPILER g++)
