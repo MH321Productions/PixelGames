@@ -25,13 +25,13 @@ StarterFrame::StarterFrame( wxWindow* parent, wxWindowID id, const wxString& tit
 	mainMenuBar = new wxMenuBar( 0 );
 	menuFile = new wxMenu();
 	wxMenuItem* itemFileSettings;
-	itemFileSettings = new wxMenuItem( menuFile, wxID_ANY, wxString( wxT("Settings") ) , wxEmptyString, wxITEM_NORMAL );
+	itemFileSettings = new wxMenuItem( menuFile, wxID_ANY, wxString( wxT("Settings") ) + wxT('\t') + wxT("CTRL+P"), wxEmptyString, wxITEM_NORMAL );
 	menuFile->Append( itemFileSettings );
 
 	menuFile->AppendSeparator();
 
 	wxMenuItem* itemFileQuit;
-	itemFileQuit = new wxMenuItem( menuFile, wxID_ANY, wxString( wxT("Quit") ) , wxEmptyString, wxITEM_NORMAL );
+	itemFileQuit = new wxMenuItem( menuFile, wxID_ANY, wxString( wxT("Quit") ) + wxT('\t') + wxT("CTRL+W"), wxEmptyString, wxITEM_NORMAL );
 	menuFile->Append( itemFileQuit );
 
 	mainMenuBar->Append( menuFile, wxT("File") );
@@ -42,7 +42,7 @@ StarterFrame::StarterFrame( wxWindow* parent, wxWindowID id, const wxString& tit
 	menuHelp->Append( itemHelpAbout );
 
 	wxMenuItem* itemHelpLibraires;
-	itemHelpLibraires = new wxMenuItem( menuHelp, wxID_ANY, wxString( wxT("Libraries") ) , wxEmptyString, wxITEM_NORMAL );
+	itemHelpLibraires = new wxMenuItem( menuHelp, wxID_ANY, wxString( wxT("Libraries") ) + wxT('\t') + wxT("CTRL+L"), wxEmptyString, wxITEM_NORMAL );
 	menuHelp->Append( itemHelpLibraires );
 
 	mainMenuBar->Append( menuHelp, wxT("Help") );
