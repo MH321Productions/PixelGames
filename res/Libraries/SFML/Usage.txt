@@ -1,0 +1,1 @@
+The SFML library is used by the minigames for window management, rendering and audio.
