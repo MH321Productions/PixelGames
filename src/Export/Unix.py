@@ -26,7 +26,7 @@ libs = [
 # A list of all paths to the resource files
 # (Relative to the main directory)
 res = [
-    
+    "res/libraries.res"
 ]
 
 def checkMainDir(mainDir):
