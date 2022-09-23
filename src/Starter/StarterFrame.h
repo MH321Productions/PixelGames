@@ -137,3 +137,20 @@ class LibraryPanel : public wxPanel
 
 };
 
+///////////////////////////////////////////////////////////////////////////////
+/// Class SettingsDialog
+///////////////////////////////////////////////////////////////////////////////
+class SettingsDialog : public wxDialog
+{
+	private:
+
+	protected:
+
+	public:
+
+		SettingsDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("PixelGames Settings"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 750,500 ), long style = wxDEFAULT_DIALOG_STYLE );
+
+		~SettingsDialog();
+
+};
+

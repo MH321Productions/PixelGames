@@ -42,7 +42,8 @@ void StarterFrameImpl::onGame(wxCommandEvent& event) {
 }
 
 void StarterFrameImpl::onSettings(wxCommandEvent& event) {
-
+    SettingsDialogImpl dialog(this);
+    dialog.ShowModal();
 }
 
 void StarterFrameImpl::onPressQuit(wxCommandEvent& event) {

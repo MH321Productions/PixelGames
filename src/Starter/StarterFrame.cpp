@@ -227,3 +227,15 @@ LibraryPanel::LibraryPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos,
 LibraryPanel::~LibraryPanel()
 {
 }
+
+SettingsDialog::SettingsDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+
+
+	this->Centre( wxBOTH );
+}
+
+SettingsDialog::~SettingsDialog()
+{
+}

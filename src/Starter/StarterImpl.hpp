@@ -61,4 +61,11 @@ class LibraryPanelImpl : public LibraryPanel {
         LibraryPanelImpl(wxWindow* parent, const ResourceHandler& handler, const std::string& libName);
 };
 
+class SettingsDialogImpl : public SettingsDialog {
+    protected:
+
+    public:
+        SettingsDialogImpl(StarterFrameImpl* parent) : SettingsDialog(parent) {}
+};
+
 #endif //PG_STARTER_IMPL_HPP
