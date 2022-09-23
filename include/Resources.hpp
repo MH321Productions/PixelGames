@@ -48,6 +48,10 @@ class Resource {
         std::string getText()         const {return text;}
         long getNumber()              const {return number;}
         std::vector<Byte> getBinary() const {return bin;}
+        std::string getBinaryAsString() const {
+            if (bin.empty()) return "";
+            else return std::string((char*) bin.data(), bin.size());
+        }
 };
 
 /**
@@ -81,14 +85,14 @@ class ResourceHandler {
          * @param resName The internal name of the resource
          * @returns The loaded resource or an invalid one
          */
-        Resource getResource(const std::string& resName);
+        Resource getResource(const std::string& resName) const;
 
         /**
          * Searches the loaded resources for the given name
          * @param resName The internal name of the resource
          * @returns If the resource exists
          */ 
-        bool hasResource(const std::string& resName);
+        bool hasResource(const std::string& resName) const;
 };
 
 #endif //PG_RESOURCES_HPP
