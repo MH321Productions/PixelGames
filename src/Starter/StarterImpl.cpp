@@ -9,8 +9,10 @@ class StarterApp : public wxApp {
     public:
         virtual bool OnInit() {
             Windows::setupWindows();
+            wxImage::AddHandler(new wxPNGHandler);
 
             wxFileName f(wxStandardPaths::Get().GetExecutablePath());
+            f.RemoveLastDir(); //To get main directory
             StarterFrameImpl* frame = new StarterFrameImpl(f.GetPath().ToUTF8().data());
             frame->Show(true);
             return true;
@@ -20,9 +22,9 @@ class StarterApp : public wxApp {
 wxDEFINE_EVENT(START_GAME, wxCommandEvent);
 wxIMPLEMENT_APP(StarterApp);
 
-StarterFrameImpl::StarterFrameImpl(const string& programPath)
-: StarterFrame(NULL), programPath(programPath), ipc(programPath), currentGame(PongSingle) {
-    wxLogInfo(wxString::FromUTF8(programPath));
+StarterFrameImpl::StarterFrameImpl(const string& mainPath)
+: StarterFrame(NULL), mainPath(mainPath), ipc(mainPath), currentGame(PongSingle) {
+    wxLogInfo(wxString::FromUTF8(mainPath));
 
     Bind(START_GAME, &StarterFrameImpl::onGame, this);
 }
@@ -37,4 +39,22 @@ void StarterFrameImpl::onStartTest(wxCommandEvent& event) {
 
 void StarterFrameImpl::onGame(wxCommandEvent& event) {
     ipc.runGame(Games(event.GetInt()), this);
+}
+
+void StarterFrameImpl::onSettings(wxCommandEvent& event) {
+
+}
+
+void StarterFrameImpl::onPressQuit(wxCommandEvent& event) {
+    Close();
+}
+
+void StarterFrameImpl::onAbout(wxCommandEvent& event) {
+    AboutDialogImpl dialog(this);
+    dialog.ShowModal();
+}
+
+void StarterFrameImpl::onLibraries(wxCommandEvent& event) {
+    LibrariesDialogImpl dialog(this, mainPath);
+    dialog.ShowModal();
 }
