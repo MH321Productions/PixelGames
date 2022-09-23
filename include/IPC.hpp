@@ -18,7 +18,7 @@ class IPC {
         static const std::map<Games, std::string> paths;
         static const std::string pathPrefix, pathSuffix;
 
-        std::string mainPath;
+        std::string mainPath, binPath;
 
         std::string getPath(Games game);
         GameReturn runGameNative(const std::string& path);

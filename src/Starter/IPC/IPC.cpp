@@ -22,13 +22,16 @@ const string IPC::pathSuffix = "";
 IPC::IPC(const std::string& programPath) {
     path program(programPath);
 
-    if (program.filename() == pathPrefix) mainPath = program.string();
-    else {
+    if (program.filename() == pathPrefix) {
+        binPath = program.string();
+        mainPath = program.parent_path().string();
+    } else {
+        mainPath = program.string();
         program.append(pathPrefix);
-        if (exists(program)) mainPath = program.string();
+        if (exists(program)) binPath = program.string();
         else {
             cerr << "Couldn't find minigame path";
-            mainPath = current_path().string();
+            binPath = current_path().string();
         }
     }
 
@@ -36,7 +39,7 @@ IPC::IPC(const std::string& programPath) {
 }
 
 string IPC::getPath(Games game) {
-    return path(mainPath).append(paths.at(game) + pathSuffix).string();
+    return path(binPath).append(paths.at(game) + pathSuffix).string();
 }
 
 bool IPC::checkAllGames() {
