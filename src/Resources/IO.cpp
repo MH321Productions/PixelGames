@@ -52,6 +52,11 @@ bool ResourceHandler::loadIntern(const std::string filePath, const bool& clear) 
         return false;
     }
 
+    if (!exists(filePath)) {
+        cerr << "The file doesn't exist" << endl;
+        return false;
+    }
+
     //Read file into array
     path p(filePath);
     size_t fileSize = file_size(p);
