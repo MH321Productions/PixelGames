@@ -4,9 +4,6 @@
 [submodule "lib/wxWidgets"]
 	path = lib/wxWidgets
 	url = https://github.com/wxWidgets/wxWidgets.git
-[submodule "lib/json"]
-	path = lib/json
-	url = https://github.com/nlohmann/json.git
 [submodule "lib/zlib"]
 	path = lib/zlib
 	url = https://github.com/madler/zlib.git
